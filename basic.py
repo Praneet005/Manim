@@ -43,6 +43,6 @@ class MatrixVisualization(Scene):
         self.wait()
 
 if __name__ == "__main__":
-    module_name = os.path.basename(sys.argv[0])
+    module_name = "basic.py"
     command = f"manim -pql {module_name} MatrixVisualization"
     os.system(command)
