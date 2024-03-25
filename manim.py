@@ -1,10 +1,6 @@
-from manim import Scene, Text, Sphere, Torus, SurfaceMesh, Surface, ThreeDCamera, BLUE
-from manim import DEGREES, IN, OUT, PI, Rotate, FadeIn, FadeTransform, ShowCreation, TexturedSurface
+from manim import Scene, Text, Sphere, Torus, BLUE, PI, Rotate, FadeIn, FadeTransform, ShowCreation, TexturedSurface
 
 class SurfaceExample(Scene):
-    CONFIG = {
-        "camera_class": ThreeDCamera,
-    }
 
     def construct(self):
         surface_text = Text("For 3d scenes, try using surfaces")
@@ -26,24 +22,14 @@ class SurfaceExample(Scene):
 
         for mob in surfaces:
             mob.shift(IN)
-            mob.mesh = SurfaceMesh(mob)
-            mob.mesh.set_stroke(BLUE, 1, opacity=0.5)
-
-        # Set perspective
-        frame = self.camera.frame
-        frame.set_euler_angles(
-            theta=-30 * DEGREES,
-            phi=70 * DEGREES,
-        )
+            mob.set_stroke(BLUE, 1, opacity=0.5)
 
         surface = surfaces[0]
 
         self.play(
             FadeIn(surface),
-            ShowCreation(surface.mesh, lag_ratio=0.01, run_time=3),
+            ShowCreation(surface, lag_ratio=0.01, run_time=3),
         )
-        for mob in surfaces:
-            mob.add(mob.mesh)
         surface.save_state()
         self.play(Rotate(surface, PI / 2), run_time=2)
         for mob in surfaces[1:]:
@@ -56,13 +42,8 @@ class SurfaceExample(Scene):
 
         self.play(
             Transform(surface, surfaces[2]),
-            # Move camera frame during the transition
-            frame.animate.increment_phi(-10 * DEGREES),
-            frame.animate.increment_theta(-20 * DEGREES),
             run_time=3
         )
-        # Add ambient rotation
-        frame.add_updater(lambda m, dt: m.increment_theta(-0.1 * dt))
 
         light_text = Text("You can move around the light source")
         light_text.move_to(surface_text)
