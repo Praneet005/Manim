@@ -1,13 +1,23 @@
+# trigonometric_graphs.py
+
 from manim import *
 
-
-class CalculusApplications(Scene):
+class TrigonometricGraphs(Scene):
     def construct(self):
-        text1 = Text("Real-world Application 1: Physics").shift(UP*2)
-        text2 = Text("Real-world Application 2: Economics").shift(UP)
-        text3 = Text("Real-world Application 3: Engineering").shift(DOWN)
+        axes = Axes(
+            x_range=[-2 * PI, 2 * PI],
+            y_range=[-1.5, 1.5],
+            axis_config={"color": BLUE},
+        )
 
-        self.play(Write(text1))
-        self.play(Write(text2))
-        self.play(Write(text3))
-        self.wait(2) 
+        # Create graphs
+        sine_graph = axes.plot(lambda x: np.sin(x), color=GREEN)
+        cosine_graph = axes.plot(lambda x: np.cos(x), color=RED)
+        tangent_graph = axes.plot(lambda x: np.tan(x), color=YELLOW)
+
+        # Add labels
+        axes_labels = axes.get_axis_labels(x_label="x", y_label="y")
+
+        # Display graphs and labels
+        self.add(axes, axes_labels, sine_graph, cosine_graph, tangent_graph)
+        self.wait(5)  # Wait for 5 seconds
