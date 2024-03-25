@@ -1,4 +1,6 @@
-from manim import Scene
+from manim import Scene, Text, Sphere, Torus, SurfaceMesh, Surface, ThreeDCamera, BLUE
+from manim import DEGREES, IN, OUT, PI, Rotate, FadeIn, FadeTransform, ShowCreation, TexturedSurface
+
 class SurfaceExample(Scene):
     CONFIG = {
         "camera_class": ThreeDCamera,
@@ -6,14 +8,13 @@ class SurfaceExample(Scene):
 
     def construct(self):
         surface_text = Text("For 3d scenes, try using surfaces")
-        surface_text.fix_in_frame()
         surface_text.to_edge(UP)
         self.add(surface_text)
         self.wait(0.1)
 
-        torus1 = Torus(r1=1, r2=1)
-        torus2 = Torus(r1=3, r2=1)
-        sphere = Sphere(radius=3, resolution=torus1.resolution)
+        torus1 = Torus(inner_radius=1, outer_radius=1)
+        torus2 = Torus(inner_radius=3, outer_radius=1)
+        sphere = Sphere(radius=3)
         
         day_texture = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Whole_world_-_land_and_oceans.jpg/1280px-Whole_world_-_land_and_oceans.jpg"
         night_texture = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/The_earth_at_night.jpg/1280px-The_earth_at_night.jpg"
@@ -63,21 +64,15 @@ class SurfaceExample(Scene):
         # Add ambient rotation
         frame.add_updater(lambda m, dt: m.increment_theta(-0.1 * dt))
 
-        # Play around with where the light is
         light_text = Text("You can move around the light source")
         light_text.move_to(surface_text)
-        light_text.fix_in_frame()
-
         self.play(FadeTransform(surface_text, light_text))
         light = self.camera.light_source
         self.add(light)
-        light.save_state()
         self.play(light.animate.move_to(3 * IN), run_time=5)
         self.play(light.animate.shift(10 * OUT), run_time=5)
 
         drag_text = Text("Try moving the mouse while pressing d or s")
         drag_text.move_to(light_text)
-        drag_text.fix_in_frame()
-
         self.play(FadeTransform(light_text, drag_text))
         self.wait()
