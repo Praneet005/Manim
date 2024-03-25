@@ -1,4 +1,4 @@
-from manim import Scene, Text, VGroup, IntegerMatrix, ShowCreation, FadeTransform, FadeOut, Write
+from manim import Scene, Text, VGroup, IntegerMatrix, Create, FadeTransform, FadeOut, Write
 from manim.mobject.number_line import NumberPlane
 from manim.mobject.geometry import ComplexPlane
 from manim.mobject.svg.tex_mobject import TexText
@@ -29,7 +29,7 @@ class OpeningManimExample(Scene):
         linear_transform_words.set_stroke(BLACK, 10, background=True)
 
         self.play(
-            ShowCreation(grid),
+            Create(grid),
             FadeTransform(intro_words, linear_transform_words)
         )
         self.wait()
@@ -61,3 +61,4 @@ class OpeningManimExample(Scene):
             run_time=6,
         )
         self.wait(2)
+
