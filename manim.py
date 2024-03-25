@@ -8,6 +8,8 @@ class TrigonometricGraphs(Scene):
             x_range=[-2 * PI, 2 * PI],
             y_range=[-1.5, 1.5],
             axis_config={"color": BLUE},
+            y_length=6,
+            x_length=10
         )
 
         # Create graphs
@@ -20,4 +22,4 @@ class TrigonometricGraphs(Scene):
 
         # Display graphs and labels
         self.add(axes, axes_labels, sine_graph, cosine_graph, tangent_graph)
-        self.wait(5)  # Wait for 5 seconds
+        self.wait(20)  # Extend the duration to 20 seconds
