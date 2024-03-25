@@ -1,3 +1,9 @@
+from manim import Scene, Text, VGroup, IntegerMatrix, ShowCreation, FadeTransform, FadeOut, Write
+from manim.mobject.number_line import NumberPlane
+from manim.mobject.geometry import ComplexPlane
+from manim.mobject.svg.tex_mobject import TexText
+from manim.constants import *
+
 class OpeningManimExample(Scene):
     def construct(self):
         intro_words = Text("""
