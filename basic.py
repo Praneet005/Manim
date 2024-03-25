@@ -1,73 +1,27 @@
-from manim import Scene, Text, Sphere, Torus, SurfaceMesh, Surface, ThreeDCamera, BLUE, PI, Rotate, FadeIn, FadeTransform, ShowCreation, TexturedSurface
+from manim import *
 
-class SurfaceExample(Scene):
-    CONFIG = {
-        "camera_class": ThreeDCamera,
-    }
-
+class MatrixVisualization(Scene):
     def construct(self):
-        surface_text = Text("For 3d scenes, try using surfaces")
-        surface_text.to_edge(UP)
-        self.add(surface_text)
-        self.wait(0.1)
+        matrix = Matrix([
+            ["a", "b"],
+            ["c", "d"]
+        ])
 
-        torus1 = Torus(inner_radius=1, outer_radius=1)
-        torus2 = Torus(inner_radius=3, outer_radius=1)
-        sphere = Sphere(radius=3)
-        
-        day_texture = "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Whole_world_-_land_and_oceans.jpg/1280px-Whole_world_-_land_and_oceans.jpg"
-        night_texture = "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/The_earth_at_night.jpg/1280px-The_earth_at_night.jpg"
-
-        surfaces = [
-            TexturedSurface(surface, day_texture, night_texture)
-            for surface in [sphere, torus1, torus2]
-        ]
-
-        for mob in surfaces:
-            mob.shift(IN)
-            mob.mesh = SurfaceMesh(mob)
-            mob.mesh.set_stroke(BLUE, 1, opacity=0.5)
-
-        # Set perspective
-        frame = self.camera.frame
-        frame.set_euler_angles(
-            theta=-30 * DEGREES,
-            phi=70 * DEGREES,
-        )
-
-        surface = surfaces[0]
-
-        self.play(
-            FadeIn(surface),
-            ShowCreation(surface.mesh, lag_ratio=0.01, run_time=3),
-        )
-        for mob in surfaces:
-            mob.add(mob.mesh)
-        surface.save_state()
-        self.play(Rotate(surface, PI / 2), run_time=2)
-        for mob in surfaces[1:]:
-            mob.rotate(PI / 2)
-
-        self.play(
-            Transform(surface, surfaces[1]),
-            run_time=3
-        )
-
-        self.play(
-            Transform(surface, surfaces[2]),
-            run_time=3
-        )
-        
-        light_text = Text("You can move around the light source")
-        light_text.move_to(surface_text)
-        self.play(FadeTransform(surface_text, light_text))
-        light = self.camera.light_source
-        self.add(light)
-        self.play(light.animate.move_to(3 * IN), run_time=5)
-        self.play(light.animate.shift(10 * OUT), run_time=5)
-
-        drag_text = Text("Try moving the mouse while pressing d or s")
-        drag_text.move_to(light_text)
-        self.play(FadeTransform(light_text, drag_text))
+        self.play(Create(matrix))
         self.wait()
+
+        self.play(Transform(matrix, matrix.copy().scale(2)))
+        self.wait()
+
+        self.play(Transform(matrix, matrix.copy().rotate(PI/4)))
+        self.wait()
+
+        self.play(Uncreate(matrix))
+        self.wait()
+
+if __name__ == "__main__":
+    module_name = os.path.basename(sys.argv[0])
+    command = f"manim -pql {module_name} MatrixVisualization"
+    os.system(command)
+
 
