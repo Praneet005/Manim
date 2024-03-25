@@ -13,11 +13,12 @@ class MatrixVisualization(Scene):
         matrix.scale(0.7)
 
         # Add text labels
+        entries = matrix.get_entries()
         labels = VGroup(
-            Tex(f"{a}").next_to(matrix.get_entries()[0][0], UP),
-            Tex(f"{b}").next_to(matrix.get_entries()[0][1], UP),
-            Tex(f"{c}").next_to(matrix.get_entries()[1][0], UP),
-            Tex(f"{d}").next_to(matrix.get_entries()[1][1], UP)
+            Tex(f"{a}").next_to(entries[0], UP),
+            Tex(f"{b}").next_to(entries[1], UP),
+            Tex(f"{c}").next_to(entries[2], UP),
+            Tex(f"{d}").next_to(entries[3], UP)
         )
 
         # Create arrows to represent vectors
