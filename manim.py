@@ -1,3 +1,4 @@
+from manim import Scene
 class SurfaceExample(Scene):
     CONFIG = {
         "camera_class": ThreeDCamera,
