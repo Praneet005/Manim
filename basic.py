@@ -18,3 +18,23 @@ class TransformCurve(Scene):
         self.play(Transform(curve1, curve2, run_time=3))
         self.wait()
 
+        # Move camera to show x-z plane
+        self.play(self.camera.frame.animate.move_to(3 * UP + 3 * RIGHT))
+        self.wait()
+
+        # Add axes for x-z plane
+        axes_xz = ThreeDAxes(x_range=(-3, 3), y_range=(-3, 3), z_range=(-3, 3))
+        self.add(axes_xz)
+
+        # Move camera to show y-z plane
+        self.play(self.camera.frame.animate.move_to(3 * DOWN + 3 * RIGHT))
+        self.wait()
+
+        # Add axes for y-z plane
+        axes_yz = ThreeDAxes(x_range=(-3, 3), y_range=(-3, 3), z_range=(-3, 3))
+        axes_yz.rotate(PI / 2, RIGHT)
+        self.add(axes_yz)
+
+        self.wait()
+
+
