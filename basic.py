@@ -1,6 +1,5 @@
 from manim import *
 
-
 class TransformCurve(Scene):
     def construct(self):
         # Define the parametric curve
@@ -19,7 +18,7 @@ class TransformCurve(Scene):
         self.wait()
 
         # Move camera to show x-z plane
-        self.play(self.camera.frame.animate.move_to(3 * UP + 3 * RIGHT))
+        self.move_camera(phi=70 * DEGREES, theta=-90 * DEGREES)
         self.wait()
 
         # Add axes for x-z plane
@@ -27,7 +26,7 @@ class TransformCurve(Scene):
         self.add(axes_xz)
 
         # Move camera to show y-z plane
-        self.play(self.camera.frame.animate.move_to(3 * DOWN + 3 * RIGHT))
+        self.move_camera(phi=0 * DEGREES, theta=-90 * DEGREES)
         self.wait()
 
         # Add axes for y-z plane
@@ -36,5 +35,6 @@ class TransformCurve(Scene):
         self.add(axes_yz)
 
         self.wait()
+
 
 
